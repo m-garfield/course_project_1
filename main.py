@@ -19,7 +19,13 @@ params = {
 }
 
 respond = requests.get(url, params=params)
-pprint(respond.json())
+# pprint(respond.json())
+for Foto_big_size in respond.json()["response"]['items']:
+    print("имя данной фотки будет: ", str(Foto_big_size["likes"]['count']) + "/" + str(Foto_big_size["date"]), ", a ee url:",Foto_big_size["sizes"][-1]['url'])
+    print("_________________________________________________")
+
+
+# pprint(respond.json())
 
 
 
