@@ -9,7 +9,7 @@ with open ("file_token", "r") as file_token:
 # owner_id = input("Введите ID = ")
 url = 'https://api.vk.com/method/photos.get'
 params = {
-    "owner_id": "448286812",
+    "owner_id": "629727012",
     'access_token': token,
     'album_id': "profile",
     "photo_sizes": '1',
