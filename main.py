@@ -1,4 +1,5 @@
 import requests
+import yadisk
 from pprint import pprint
 
 with open ("file_token", "r") as file_token:
@@ -20,12 +21,31 @@ params = {
 
 respond = requests.get(url, params=params)
 # pprint(respond.json())
-for Foto_big_size in respond.json()["response"]['items']:
-    print("имя данной фотки будет: ", str(Foto_big_size["likes"]['count']) + "/" + str(Foto_big_size["date"]), ", a ee url:",Foto_big_size["sizes"][-1]['url'])
-    print("_________________________________________________")
+with open("file_ya_token", "r") as file_ya_token:
+    token_ya = file_ya_token.read()
+
+y = yadisk.YaDisk(token=token_ya)
+if y.check_token():
+    if not y.is_dir("/Dir_of_Foto"):
+        y.mkdir("/Dir_of_Foto")
+        print('Папка "/Dir_of_Foto" создана, загружаем фото')
+    else:
+        print("Папка существует, загружаем фото ")
+for foto_big_size in respond.json()["response"]['items']:
+    name_foto = str(foto_big_size["likes"]['count']) + "/" + str(foto_big_size["date"])
+    url_foto = foto_big_size["sizes"][-1]['url']
+
+    # print("имя данной фотки будет: ", str(Foto_big_size["likes"]['count']) + "/" + str(Foto_big_size["date"]), ", a ee url:",Foto_big_size["sizes"][-1]['url'])
 
 
-# pprint(respond.json())
+    y.download("/Dir_of_Foto"+ name_foto, url_foto)
+
+# вторая  часть , отправляем  фотку на яндекс диск
+
+# токен     AQAAAABQRXTlAAhDhQfNmGSPcUUeiWPRpyPWFhM
+
+
+
 
 
 
