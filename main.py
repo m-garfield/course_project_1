@@ -1,20 +1,17 @@
 import json
+from pprint import pprint
+
 import requests
 import yadisk
-
-
-import time
 from tqdm import tqdm
-
-
-
 json_dic = []
 with open("file_token", "r") as file_token:
     token = file_token.read().strip()
 token_ya = input("Введите токен с Yandex полигона: ")
 owner_id = input("Введите ID: ")
-count = 5
 count = input("Введите желаемое количество загружаемых фото: ")
+if not count:
+    count = 5
 url = 'https://api.vk.com/method/photos.get'
 params = {
     "owner_id": owner_id,
@@ -38,8 +35,7 @@ for i in tqdm(range(int(count))):
         json_dic.append({"file_name": str(foto_big_size["likes"]['count']) + '.jpg', "size": str(foto_big_size["sizes"][-1]['type'])})
         with open("file_json", "w") as file_json:
             json.dump(json_dic, file_json)
-
-# токен     AQAAAABQRXTlAAhDhQfNmGSPcUUeiWPRpyPWFhM
+print( " Резервная копия фотографий создана успешно! ")
 
 
 
